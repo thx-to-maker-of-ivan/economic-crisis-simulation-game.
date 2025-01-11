@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V1N - Economic Crisis Simulation Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .loading-title {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+        .loading-subtitle {
+            font-size: 1.5rem;
+            color: #555;
+        }
+
+        .icon {
+            cursor: pointer;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .icon img {
+            width: 150px;
+            height: auto;
+        }
+
+        .icon-name {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .fade-text {
+            font-size: 1rem;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        .bold-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .background-text {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loadingScreen" class="screen active">
+    <div class="loading-title">V1N</div>
+    <div class="loading-subtitle">Economic Crisis Simulation Game</div>
+</div>
+
+<div id="menuScreen" class="screen">
+    <div class="icon" onclick="startIntroduction()">
+        <img src="https://via.placeholder.com/150" alt="Game Icon">
+        <div class="icon-name">Supply Chain Disruption</div>
+    </div>
+</div>
+
+<div id="introScreen" class="screen">
+    <div class="bold-title">Introduction</div>
+</div>
+
+<div id="businessDescriptionScreen" class="screen">
+    <div class="background-text">
+        Business: Manufacturers of electronic devices. It relies on global supply chains and political instability disturbs its supply chain.
+    </div>
+    <div class="fade-text">Click space to move forward</div>
+</div>
+
+<div id="overviewScreen" class="screen">
+    <div class="background-text">
+        <strong>Overview of the situation</strong>
+        <br><br>
+        <strong>Scene description:</strong> The electronic company has thrived over a decade, producing all types of electronic devices. They get their primary products (raw materials) from various countries, including East Asia and neighboring countries.
+        <br><br>
+        <strong>Current description:</strong> Political instability is happening in areas where key suppliers are located. The situation is serious as the governments of these areas have restricted exporting. Now your company is facing significant delays in receiving critical components.
+    </div>
+    <div class="fade-text">Click space to move forward</div>
+</div>
+
+<div id="startGameScreen" class="screen">
+    <div class="bold-title">Are you ready to start the game?</div>
+</div>
+
+<script>
+    const screens = document.querySelectorAll('.screen');
+    let currentScreen = 0;
+
+    function switchScreen(index) {
+        screens[currentScreen].classList.remove('active');
+        screens[index].classList.add('active');
+        currentScreen = index;
+    }
+
+    function startIntroduction() {
+        switchScreen(2); // Go to introduction screen
+        setTimeout(() => {
+            switchScreen(3); // Automatically move to business description
+        }, 2000);
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            if (currentScreen === 3) {
+                switchScreen(4); // Move to overview screen
+            } else if (currentScreen === 4) {
+                switchScreen(5); // Move to start game screen
+            }
+        }
+    });
+
+    // Simulate loading screen delay
+    setTimeout(() => {
+        switchScreen(1); // Move to menu screen
+    }, 2000);
+</script>
+
+</body>
+</html>
